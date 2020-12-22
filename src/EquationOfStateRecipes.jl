@@ -1,7 +1,7 @@
 module EquationOfStateRecipes
 
 using EquationsOfStateOfSolids.Collections:
-    EquationOfStateOfSolids, EnergyEOS, PressureEOS, BulkModulusEOS
+    EquationOfStateOfSolids, EnergyEos, PressureEos, BulkModulusEos
 using RecipesBase: @recipe
 using Unitful: AbstractQuantity, ustrip, @u_str
 
@@ -25,12 +25,12 @@ import RecipesBase
     end
 end
 
-_yprefix(::Type{<:EnergyEOS}) = "energy"
-_yprefix(::Type{<:PressureEOS}) = "pressure"
-_yprefix(::Type{<:BulkModulusEOS}) = "bulk modulus"
+_yprefix(::Type{<:EnergyEos}) = "energy"
+_yprefix(::Type{<:PressureEos}) = "pressure"
+_yprefix(::Type{<:BulkModulusEos}) = "bulk modulus"
 
-_yunit(::Type{<:EnergyEOS}) = u"eV"
-_yunit(::Type{<:PressureEOS}) = u"GPa"
-_yunit(::Type{<:BulkModulusEOS}) = u"GPa"
+_yunit(::Type{<:EnergyEos}) = u"eV"
+_yunit(::Type{<:PressureEos}) = u"GPa"
+_yunit(::Type{<:BulkModulusEos}) = u"GPa"
 
 end
