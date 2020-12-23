@@ -99,8 +99,8 @@ version = "0.24.8"
 [[EquationsOfStateOfSolids]]
 deps = ["AutoHashEquals", "ConstructionBase", "InteractiveUtils", "LsqFit", "PolynomialRoots", "Polynomials", "Roots", "Serialization", "UnPack", "Unitful"]
 git-tree-sha1 = "dec2712f061d49d817b2108a83222f634a7c8712"
-repo-rev = "master"
-repo-url = "https://github.com/MineralsCloud/EquationsOfStateOfSolids.jl.git"
+repo-rev = "0.1.0"
+repo-url = "git@github.com:MineralsCloud/EquationsOfStateOfSolids.jl.git"
 uuid = "1eaa2786-f833-4167-8397-974edad0881e"
 version = "0.1.0"
 
