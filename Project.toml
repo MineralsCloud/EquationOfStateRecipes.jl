@@ -10,7 +10,7 @@ Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 
 [compat]
 EquationsOfStateOfSolids = "0.1"
-RecipesBase = "1"
+RecipesBase = "0.6, 0.7, 0.8, 1"
 Unitful = "0.18, 1"
 julia = "1"
 
