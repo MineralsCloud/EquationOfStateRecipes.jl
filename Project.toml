@@ -1,7 +1,7 @@
 name = "EquationOfStateRecipes"
 uuid = "8d49d7c9-511f-4c38-862f-eeb1232c8dad"
 authors = ["Qi Zhang <singularitti@outlook.com>"]
-version = "0.1.3"
+version = "0.1.4-DEV"
 
 [deps]
 Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
