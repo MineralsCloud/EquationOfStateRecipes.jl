@@ -2,7 +2,7 @@ module EquationOfStateRecipes
 
 using EquationsOfStateOfSolids:
     EquationOfStateOfSolids, EnergyEquation, PressureEquation, BulkModulusEquation
-using RecipesBase: @recipe, @series
+using RecipesBase: @userplot, @recipe, @series
 using Unitful: AbstractQuantity, ustrip, @u_str
 
 import RecipesBase
@@ -37,6 +37,27 @@ import RecipesBase
     end
     seriestype --> :path
     return volumes, map(eos, volumes)
+end
+
+@userplot EnergyPlot
+@recipe function f(plot::EnergyPlot)
+    params = first(plot.args)
+    volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
+    EnergyEquation(params), volumes
+end
+
+@userplot PressurePlot
+@recipe function f(plot::PressurePlot)
+    params = first(plot.args)
+    volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
+    PressureEquation(params), volumes
+end
+
+@userplot BulkModulusPlot
+@recipe function f(plot::BulkModulusPlot)
+    params = first(plot.args)
+    volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
+    BulkModulusEquation(params), volumes
 end
 
 _yguide(::EnergyEquation) = "energy"
