@@ -13,7 +13,6 @@ import RecipesBase
 )
     xguide --> "volume"
     yguide --> _yguide(eos)
-    palette --> :tab20
     frame --> :box
     xlims --> extrema(volumes)
     legend_foreground_color --> nothing
@@ -23,7 +22,7 @@ import RecipesBase
         markersize --> 2
         markerstrokecolor --> :auto
         markerstrokewidth --> 0
-        label := ""
+        primary := false
         volumes, map(eos, volumes)
     end
     seriestype --> :path
