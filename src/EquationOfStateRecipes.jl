@@ -73,8 +73,4 @@ _yguide(::EnergyEquation) = "energy"
 _yguide(::PressureEquation) = "pressure"
 _yguide(::BulkModulusEquation) = "bulk modulus"
 
-_ydefaultunit(::EnergyEquation) = u"eV"
-_ydefaultunit(::PressureEquation) = u"GPa"
-_ydefaultunit(::BulkModulusEquation) = u"GPa"
-
 end
