@@ -20,7 +20,7 @@ import RecipesBase
         return x, y
     else
         xguide --> "volume"
-        yguide --> _yprefix(typeof(eos))
+        yguide --> _yguideprefix(typeof(eos))
         return volumes, map(eos, volumes)
     end
 end
@@ -29,8 +29,8 @@ _yguideprefix(::Type{<:EnergyEquation}) = "energy"
 _yguideprefix(::Type{<:PressureEquation}) = "pressure"
 _yguideprefix(::Type{<:BulkModulusEquation}) = "bulk modulus"
 
-_yunit(::Type{<:EnergyEquation}) = u"eV"
-_yunit(::Type{<:PressureEquation}) = u"GPa"
-_yunit(::Type{<:BulkModulusEquation}) = u"GPa"
+_ydefaultunit(::Type{<:EnergyEquation}) = u"eV"
+_ydefaultunit(::Type{<:PressureEquation}) = u"GPa"
+_ydefaultunit(::Type{<:BulkModulusEquation}) = u"GPa"
 
 end
