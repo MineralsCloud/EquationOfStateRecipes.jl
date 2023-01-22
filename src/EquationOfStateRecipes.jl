@@ -12,7 +12,7 @@ import RecipesBase
     volumes=eos.param.v0 .* (0.5:0.01:1.1)
 )
     xguide --> "volume"
-    yguide --> _yguideprefix(eos)
+    yguide --> _yguide(eos)
     palette --> :tab20
     frame --> :box
     xlims --> extrema(volumes)
@@ -25,9 +25,9 @@ import RecipesBase
     return volumes, map(eos, volumes)
 end
 
-_yguideprefix(::EnergyEquation) = "energy"
-_yguideprefix(::PressureEquation) = "pressure"
-_yguideprefix(::BulkModulusEquation) = "bulk modulus"
+_yguide(::EnergyEquation) = "energy"
+_yguide(::PressureEquation) = "pressure"
+_yguide(::BulkModulusEquation) = "bulk modulus"
 
 _ydefaultunit(::EnergyEquation) = u"eV"
 _ydefaultunit(::PressureEquation) = u"GPa"
