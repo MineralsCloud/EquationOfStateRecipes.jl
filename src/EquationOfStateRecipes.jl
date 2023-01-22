@@ -3,11 +3,13 @@ module EquationOfStateRecipes
 using EquationsOfStateOfSolids:
     EquationOfStateOfSolids, EnergyEquation, PressureEquation, BulkModulusEquation
 using RecipesBase: @userplot, @recipe, @series
-using Unitful: @u_str
+using Unitful: AbstractQuantity, uconvert, @u_str
 
 @recipe function f(
     eos::EquationOfStateOfSolids,
-    volumes=eos.param.v0 .* (0.5:0.01:1.1)
+    volumes=eos.param.v0 .* (0.5:0.01:1.1);
+    xunit=u"angstrom^3",
+    yunit=u"GPa"
 )
     xguide --> "volume"
     yguide --> _yguide(eos)
@@ -15,6 +17,14 @@ using Unitful: @u_str
     xlims --> extrema(volumes)
     legend_foreground_color --> nothing
     grid --> nothing
+    yvalues = map(eos, volumes)
+    x, y = if eltype(volumes) <: AbstractQuantity && eltype(yvalues) <: AbstractQuantity
+        uconvert.(xunit, volumes), uconvert.(yunit, yvalues)
+    elseif eltype(volumes) <: Real && eltype(yvalues) <: Real
+        volumes, map(eos, volumes)
+    else
+        throw(DomainError(""))
+    end
     if eos isa PressureEquation
         @series begin
             seriestype --> :hline
@@ -22,7 +32,7 @@ using Unitful: @u_str
             z_order --> :back
             primary := false
             label --> ""
-            Base.vect(0)
+            zeros(eltype(x), 1)
         end
     end
     @series begin
@@ -31,11 +41,11 @@ using Unitful: @u_str
         markerstrokecolor --> :auto
         markerstrokewidth --> 0
         primary := false
-        volumes, map(eos, volumes)
+        x, y
     end
     seriestype --> :path
     label --> ""
-    return volumes, map(eos, volumes)
+    return x, y
 end
 
 @userplot EnergyPlot
