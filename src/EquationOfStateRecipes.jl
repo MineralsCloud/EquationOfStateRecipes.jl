@@ -17,6 +17,16 @@ import RecipesBase
     xlims --> extrema(volumes)
     legend_foreground_color --> nothing
     grid --> nothing
+    if eos isa PressureEquation
+        @series begin
+            seriestype --> :hline
+            seriescolor := :black
+            z_order --> :back
+            primary := false
+            label --> ""
+            Base.vect(0)
+        end
+    end
     @series begin
         seriestype --> :scatter
         markersize --> 2
