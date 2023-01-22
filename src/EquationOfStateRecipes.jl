@@ -13,7 +13,7 @@ import RecipesBase
 )
     xguide --> "volume"
     yguide --> _yguide(eos)
-    frame --> :box
+    framestyle --> :box
     xlims --> extrema(volumes)
     legend_foreground_color --> nothing
     grid --> nothing
@@ -36,6 +36,7 @@ import RecipesBase
         volumes, map(eos, volumes)
     end
     seriestype --> :path
+    label --> ""
     return volumes, map(eos, volumes)
 end
 
