@@ -16,8 +16,13 @@ import RecipesBase
     palette --> :tab20
     frame --> :box
     xlims --> extrema(volumes)
+    legend_foreground_color --> nothing
+    grid --> nothing
     @series begin
         seriestype --> :scatter
+        markersize --> 2
+        markerstrokecolor --> :auto
+        markerstrokewidth --> 0
         label := ""
         volumes, map(eos, volumes)
     end
