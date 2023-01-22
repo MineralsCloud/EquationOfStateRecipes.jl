@@ -3,9 +3,7 @@ module EquationOfStateRecipes
 using EquationsOfStateOfSolids:
     EquationOfStateOfSolids, EnergyEquation, PressureEquation, BulkModulusEquation
 using RecipesBase: @userplot, @recipe, @series
-using Unitful: AbstractQuantity, ustrip, @u_str
-
-import RecipesBase
+using Unitful: @u_str
 
 @recipe function f(
     eos::EquationOfStateOfSolids,
