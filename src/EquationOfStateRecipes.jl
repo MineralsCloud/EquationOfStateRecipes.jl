@@ -25,9 +25,9 @@ import RecipesBase
     end
 end
 
-_yprefix(::Type{<:EnergyEquation}) = "energy"
-_yprefix(::Type{<:PressureEquation}) = "pressure"
-_yprefix(::Type{<:BulkModulusEquation}) = "bulk modulus"
+_yguideprefix(::Type{<:EnergyEquation}) = "energy"
+_yguideprefix(::Type{<:PressureEquation}) = "pressure"
+_yguideprefix(::Type{<:BulkModulusEquation}) = "bulk modulus"
 
 _yunit(::Type{<:EnergyEquation}) = u"eV"
 _yunit(::Type{<:PressureEquation}) = u"GPa"
