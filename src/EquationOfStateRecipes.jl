@@ -22,8 +22,26 @@ struct BulkModuli{T} <: DependentVariable{T}
     values::Vector{T}
 end
 
-@recipe f(::Type{Volumes}, 𝐕::Volumes) = 𝐕.values
-@recipe f(::Type{Energies}, 𝐄::Energies) = 𝐄.values
+@recipe function f(::Type{Volumes{T}}, volumes::Volumes) where {T}
+    xguide --> "volume"
+    xlims --> extrema(volumes.values)
+    return volumes.values
+end
+@recipe function f(::Type{Energies{T}}, energies::Energies{T}) where {T}
+    yguide --> "energy"
+    @series begin
+        seriestype --> :scatter
+        markersize --> 2
+        markerstrokecolor --> :auto
+        markerstrokewidth --> 0
+        primary := false
+        energies.values
+    end
+    seriestype --> :path
+    label --> ""
+    return energies.values
+end
+
 @recipe f(::Type{Pressures}, 𝐏::Pressures) = 𝐏.values
 @recipe f(::Type{BulkModuli}, 𝐁::BulkModuli) = 𝐁.values
 
