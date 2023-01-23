@@ -5,7 +5,7 @@ using EquationsOfStateOfSolids:
 using RecipesBase: @userplot, @recipe, @series, grid
 using Unitful: AbstractQuantity, DimensionError, unit, uconvert, dimension, @u_str
 
-export Volumes, Energies
+export Volumes, Energies, Pressures, BulkModuli
 
 abstract type IndependentVariable{T} end
 struct Volumes{T} <: IndependentVariable{T}
@@ -41,9 +41,41 @@ end
     label --> ""
     return energies.values
 end
-
-@recipe f(::Type{Pressures}, 𝐏::Pressures) = 𝐏.values
-@recipe f(::Type{BulkModuli}, 𝐁::BulkModuli) = 𝐁.values
+@recipe function f(::Type{Pressures{T}}, pressures::Pressures{T}) where {T}
+    yguide --> "pressure"
+    @series begin
+        seriestype --> :hline
+        seriescolor := :black
+        z_order --> :back
+        primary := false
+        zeros(T, 1)
+    end
+    @series begin
+        seriestype --> :scatter
+        markersize --> 2
+        markerstrokecolor --> :auto
+        markerstrokewidth --> 0
+        primary := false
+        pressures.values
+    end
+    seriestype --> :path
+    label --> ""
+    return pressures.values
+end
+@recipe function f(::Type{BulkModuli{T}}, bulkmoduli::BulkModuli{T}) where {T}
+    yguide --> "bulk modulus"
+    @series begin
+        seriestype --> :scatter
+        markersize --> 2
+        markerstrokecolor --> :auto
+        markerstrokewidth --> 0
+        primary := false
+        bulkmoduli.values
+    end
+    seriestype --> :path
+    label --> ""
+    return bulkmoduli.values
+end
 
 @recipe function f(
     eos::EquationOfStateOfSolids,
