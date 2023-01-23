@@ -5,6 +5,27 @@ using EquationsOfStateOfSolids:
 using RecipesBase: @userplot, @recipe, @series, grid
 using Unitful: AbstractQuantity, DimensionError, unit, uconvert, dimension, @u_str
 
+struct Volumes{T}
+    values::Vector{T}
+end
+
+struct Energies{T}
+    values::Vector{T}
+end
+
+struct Pressures{T}
+    values::Vector{T}
+end
+
+struct BulkModuli{T}
+    values::Vector{T}
+end
+
+@recipe f(::Type{Volumes}, 𝐕::Volumes) = 𝐕.values
+@recipe f(::Type{Energies}, 𝐄::Energies) = 𝐄.values
+@recipe f(::Type{Pressures}, 𝐏::Pressures) = 𝐏.values
+@recipe f(::Type{BulkModuli}, 𝐁::BulkModuli) = 𝐁.values
+
 @recipe function f(
     eos::EquationOfStateOfSolids,
     volumes=eos.param.v0 .* (0.5:0.01:1.1);
