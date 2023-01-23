@@ -36,7 +36,7 @@ using Unitful: AbstractQuantity, DimensionError, unit, uconvert, dimension, @u_s
             z_order --> :back
             primary := false
             label --> ""
-            zeros(eltype(x), 1)
+            zeros(eltype(y), 1)
         end
     end
     @series begin
