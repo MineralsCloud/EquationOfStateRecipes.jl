@@ -2,7 +2,7 @@ module EquationOfStateRecipes
 
 using EquationsOfStateOfSolids:
     EquationOfStateOfSolids, EnergyEquation, PressureEquation, BulkModulusEquation
-using RecipesBase: @userplot, @recipe, @series
+using RecipesBase: @userplot, @recipe, @series, grid
 using Unitful: AbstractQuantity, DimensionError, unit, uconvert, dimension, @u_str
 
 @recipe function f(
@@ -71,6 +71,28 @@ end
     params = first(plot.args)
     volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
     BulkModulusEquation(params), volumes
+end
+
+@userplot EOSPlot
+@recipe function f(plot::EOSPlot)
+    params = first(plot.args)
+    volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
+    link := :x
+    layout := grid(2, 1)
+    @series begin
+        eos = EnergyEquation(params)
+        yvalues = map(eos, volumes)
+        title --> raw"$E(V)$"
+        subplot := 1
+        volumes, yvalues
+    end
+    @series begin
+        eos = PressureEquation(params)
+        yvalues = map(eos, volumes)
+        title --> raw"$P(V)$"
+        subplot := 2
+        volumes, yvalues
+    end
 end
 
 _yguide(::EnergyEquation) = "energy"
