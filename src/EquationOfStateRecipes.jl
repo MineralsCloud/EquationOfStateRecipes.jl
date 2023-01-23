@@ -3,7 +3,7 @@ module EquationOfStateRecipes
 using EquationsOfStateOfSolids:
     EquationOfStateOfSolids, EnergyEquation, PressureEquation, BulkModulusEquation
 using RecipesBase: @userplot, @recipe, @series
-using Unitful: AbstractQuantity, uconvert, @u_str
+using Unitful: AbstractQuantity, DimensionError, unit, uconvert, dimension, @u_str
 
 @recipe function f(
     eos::EquationOfStateOfSolids,
@@ -19,11 +19,15 @@ using Unitful: AbstractQuantity, uconvert, @u_str
     grid --> nothing
     yvalues = map(eos, volumes)
     x, y = if eltype(volumes) <: AbstractQuantity && eltype(yvalues) <: AbstractQuantity
-        uconvert.(xunit, volumes), uconvert.(yunit, yvalues)
+        if dimension(xunit) != dimension(eltype(volumes)) || dimension(yunit) != dimension(eltype(yvalues))
+            error("")
+        else
+            uconvert.(xunit, volumes), uconvert.(yunit, yvalues)
+        end
     elseif eltype(volumes) <: Real && eltype(yvalues) <: Real
         volumes, map(eos, volumes)
     else
-        throw(DomainError(""))
+        error("")
     end
     if eos isa PressureEquation
         @series begin
