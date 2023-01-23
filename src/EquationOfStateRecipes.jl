@@ -77,52 +77,13 @@ end
     return bulkmoduli.values
 end
 
-@recipe function f(
-    eos::EquationOfStateOfSolids,
-    volumes=eos.param.v0 .* (0.5:0.01:1.1);
-    xunit=u"angstrom^3",
-    yunit=u"GPa",
-)
-    xguide --> "volume"
-    yguide --> _yguide(eos)
+@recipe function f(eos::EquationOfStateOfSolids, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     framestyle --> :box
     xlims --> extrema(volumes)
     legend_foreground_color --> nothing
     grid --> nothing
     yvalues = map(eos, volumes)
-    x, y = if eltype(volumes) <: AbstractQuantity && eltype(yvalues) <: AbstractQuantity
-        if dimension(xunit) != dimension(eltype(volumes)) ||
-            dimension(yunit) != dimension(eltype(yvalues))
-            error("")
-        else
-            uconvert.(xunit, volumes), uconvert.(yunit, yvalues)
-        end
-    elseif eltype(volumes) <: Real && eltype(yvalues) <: Real
-        volumes, map(eos, volumes)
-    else
-        error("")
-    end
-    if eos isa PressureEquation
-        @series begin
-            seriestype --> :hline
-            seriescolor := :black
-            z_order --> :back
-            primary := false
-            label --> ""
-            zeros(eltype(y), 1)
-        end
-    end
-    @series begin
-        seriestype --> :scatter
-        markersize --> 2
-        markerstrokecolor --> :auto
-        markerstrokewidth --> 0
-        primary := false
-        x, y
-    end
-    seriestype --> :path
-    label --> ""
-    return x, y
+    return volumes, yvalues
 end
 
 @userplot EnergyPlot
