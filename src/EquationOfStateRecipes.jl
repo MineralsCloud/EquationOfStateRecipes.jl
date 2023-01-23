@@ -5,19 +5,20 @@ using EquationsOfStateOfSolids:
 using RecipesBase: @userplot, @recipe, @series, grid
 using Unitful: AbstractQuantity, DimensionError, unit, uconvert, dimension, @u_str
 
-struct Volumes{T}
+export Volumes, Energies
+
+abstract type IndependentVariable{T} end
+struct Volumes{T} <: IndependentVariable{T}
     values::Vector{T}
 end
-
-struct Energies{T}
+abstract type DependentVariable{T} end
+struct Energies{T} <: DependentVariable{T}
     values::Vector{T}
 end
-
-struct Pressures{T}
+struct Pressures{T} <: DependentVariable{T}
     values::Vector{T}
 end
-
-struct BulkModuli{T}
+struct BulkModuli{T} <: DependentVariable{T}
     values::Vector{T}
 end
 
