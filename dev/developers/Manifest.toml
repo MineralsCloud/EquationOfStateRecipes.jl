@@ -145,7 +145,7 @@ version = "0.6.8"
 
 [[deps.EquationOfStateRecipes]]
 deps = ["EquationsOfStateOfSolids", "RecipesBase", "Unitful"]
-git-tree-sha1 = "cb377e3d2b38f6814338c245dc95c8a99faa20f6"
+git-tree-sha1 = "6181c8483f8746d54f441a50f9e35d699f97bf12"
 repo-rev = "main"
 repo-url = "https://github.com/MineralsCloud/EquationOfStateRecipes.jl"
 uuid = "8d49d7c9-511f-4c38-862f-eeb1232c8dad"
