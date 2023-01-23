@@ -168,8 +168,4 @@ end
     end
 end
 
-_yguide(::EnergyEquation) = "energy"
-_yguide(::PressureEquation) = "pressure"
-_yguide(::BulkModulusEquation) = "bulk modulus"
-
 end
