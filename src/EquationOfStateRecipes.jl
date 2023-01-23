@@ -9,7 +9,7 @@ using Unitful: AbstractQuantity, DimensionError, unit, uconvert, dimension, @u_s
     eos::EquationOfStateOfSolids,
     volumes=eos.param.v0 .* (0.5:0.01:1.1);
     xunit=u"angstrom^3",
-    yunit=u"GPa"
+    yunit=u"GPa",
 )
     xguide --> "volume"
     yguide --> _yguide(eos)
@@ -19,7 +19,8 @@ using Unitful: AbstractQuantity, DimensionError, unit, uconvert, dimension, @u_s
     grid --> nothing
     yvalues = map(eos, volumes)
     x, y = if eltype(volumes) <: AbstractQuantity && eltype(yvalues) <: AbstractQuantity
-        if dimension(xunit) != dimension(eltype(volumes)) || dimension(yunit) != dimension(eltype(yvalues))
+        if dimension(xunit) != dimension(eltype(volumes)) ||
+            dimension(yunit) != dimension(eltype(yvalues))
             error("")
         else
             uconvert.(xunit, volumes), uconvert.(yunit, yvalues)
@@ -56,21 +57,21 @@ end
 @recipe function f(plot::EnergyPlot)
     params = first(plot.args)
     volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
-    EnergyEquation(params), volumes
+    return EnergyEquation(params), volumes
 end
 
 @userplot PressurePlot
 @recipe function f(plot::PressurePlot)
     params = first(plot.args)
     volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
-    PressureEquation(params), volumes
+    return PressureEquation(params), volumes
 end
 
 @userplot BulkModulusPlot
 @recipe function f(plot::BulkModulusPlot)
     params = first(plot.args)
     volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
-    BulkModulusEquation(params), volumes
+    return BulkModulusEquation(params), volumes
 end
 
 @userplot EOSPlot
