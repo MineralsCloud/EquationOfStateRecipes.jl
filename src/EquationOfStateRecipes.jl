@@ -38,6 +38,7 @@ end
     xlims --> extrema(volumes)
     legend_foreground_color --> nothing
     grid --> nothing
+    palette --> :tab20
     yvalues = map(eos, volumes)
     x, y = if eltype(volumes) <: AbstractQuantity && eltype(yvalues) <: AbstractQuantity
         if dimension(xunit) != dimension(eltype(volumes)) ||
@@ -66,7 +67,7 @@ end
         markersize --> 2
         markerstrokecolor --> :auto
         markerstrokewidth --> 0
-        primary := false
+        label := ""
         x, y
     end
     seriestype --> :path
