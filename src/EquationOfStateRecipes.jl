@@ -29,51 +29,29 @@ end
 end
 @recipe function f(::Type{Energies{T}}, energies::Energies{T}) where {T}
     yguide --> "energy"
-    @series begin
-        seriestype --> :scatter
-        markersize --> 2
-        markerstrokecolor --> :auto
-        markerstrokewidth --> 0
-        primary := false
-        energies.values
-    end
     seriestype --> :path
-    label --> ""
+    markershape --> :circle
+    markersize --> 2
+    markerstrokecolor --> :auto
+    markerstrokewidth --> 0
     return energies.values
 end
 @recipe function f(::Type{Pressures{T}}, pressures::Pressures{T}) where {T}
     yguide --> "pressure"
-    @series begin
-        seriestype --> :hline
-        seriescolor := :black
-        z_order --> :back
-        primary := false
-        zeros(T, 1)
-    end
-    @series begin
-        seriestype --> :scatter
-        markersize --> 2
-        markerstrokecolor --> :auto
-        markerstrokewidth --> 0
-        primary := false
-        pressures.values
-    end
     seriestype --> :path
-    label --> ""
+    markershape --> :circle
+    markersize --> 2
+    markerstrokecolor --> :auto
+    markerstrokewidth --> 0
     return pressures.values
 end
 @recipe function f(::Type{BulkModuli{T}}, bulkmoduli::BulkModuli{T}) where {T}
     yguide --> "bulk modulus"
-    @series begin
-        seriestype --> :scatter
-        markersize --> 2
-        markerstrokecolor --> :auto
-        markerstrokewidth --> 0
-        primary := false
-        bulkmoduli.values
-    end
     seriestype --> :path
-    label --> ""
+    markershape --> :circle
+    markersize --> 2
+    markerstrokecolor --> :auto
+    markerstrokewidth --> 0
     return bulkmoduli.values
 end
 
