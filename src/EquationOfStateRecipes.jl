@@ -38,7 +38,6 @@ end
     xlims --> extrema(volumes)
     legend_foreground_color --> nothing
     grid --> nothing
-    palette --> :tab20
     yvalues = map(eos, volumes)
     x, y = if eltype(volumes) <: AbstractQuantity && eltype(yvalues) <: AbstractQuantity
         if dimension(xunit) != dimension(eltype(volumes)) ||
@@ -55,23 +54,17 @@ end
     if eos isa PressureEquation
         @series begin
             seriestype --> :hline
-            seriescolor := :black
+            seriescolor --> :black
             z_order --> :back
-            primary := false
-            label --> ""
+            label := ""
             zeros(eltype(y), 1)
         end
     end
-    @series begin
-        seriestype --> :scatter
-        markersize --> 2
-        markerstrokecolor --> :auto
-        markerstrokewidth --> 0
-        label := ""
-        x, y
-    end
     seriestype --> :path
-    label --> ""
+    markershape --> :circle
+    markersize --> 2
+    markerstrokecolor --> :auto
+    markerstrokewidth --> 0
     return x, y
 end
 
