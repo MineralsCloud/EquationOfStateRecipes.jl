@@ -59,13 +59,32 @@ end
     return bulkmoduli.values
 end
 
-@recipe function f(eos::EquationOfStateOfSolids, volumes=eos.param.v0 .* (0.5:0.01:1.1))
+@recipe function f(eos::EnergyEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
+    yvalues = map(eos, volumes)
     framestyle --> :box
     xlims --> extrema(volumes)
+    ylims --> extrema(yvalues)
     legend_foreground_color --> nothing
     grid --> nothing
+    return Volumes(volumes), Energies(yvalues)
+end
+@recipe function f(eos::PressureEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     yvalues = map(eos, volumes)
-    return volumes, yvalues
+    framestyle --> :box
+    xlims --> extrema(volumes)
+    ylims --> extrema(yvalues)
+    legend_foreground_color --> nothing
+    grid --> nothing
+    return Volumes(volumes), Pressures(yvalues)
+end
+@recipe function f(eos::BulkModulusEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
+    yvalues = map(eos, volumes)
+    framestyle --> :box
+    xlims --> extrema(volumes)
+    ylims --> extrema(yvalues)
+    legend_foreground_color --> nothing
+    grid --> nothing
+    return Volumes(volumes), BulkModuli(yvalues)
 end
 
 @userplot EnergyPlot
