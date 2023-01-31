@@ -1,11 +1,7 @@
 module EquationOfStateRecipes
 
-using EquationsOfStateOfSolids:
-    EquationOfStateOfSolids, EnergyEquation, PressureEquation, BulkModulusEquation
+using EquationsOfStateOfSolids: EnergyEquation, PressureEquation, BulkModulusEquation
 using RecipesBase: @userplot, @recipe, @series, grid
-using Unitful: AbstractQuantity, DimensionError, unit, uconvert, dimension, @u_str
-
-export Volumes, Energies, Pressures, BulkModuli
 
 abstract type Data end
 (T::Type{<:Data})(values) = T(collect(values))
