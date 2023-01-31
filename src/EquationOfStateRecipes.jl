@@ -60,19 +60,19 @@ end
 end
 
 @recipe function f(eos::EnergyEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
-    yvalues = map(eos, volumes)
+    energies = map(eos, volumes)
     framestyle --> :box
     xlims --> extrema(volumes)
-    ylims --> extrema(yvalues)
+    ylims --> extrema(energies)
     legend_foreground_color --> nothing
     grid --> nothing
-    return Volumes(volumes), Energies(yvalues)
+    return Volumes(volumes), Energies(energies)
 end
 @recipe function f(eos::PressureEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
-    yvalues = map(eos, volumes)
+    pressures = map(eos, volumes)
     framestyle --> :box
     xlims --> extrema(volumes)
-    ylims --> extrema(yvalues)
+    ylims --> extrema(pressures)
     legend_foreground_color --> nothing
     grid --> nothing
     @series begin
@@ -80,18 +80,18 @@ end
         seriescolor --> :black
         z_order --> :back
         label := ""
-        zeros(eltype(yvalues), 1)
+        zeros(eltype(pressures), 1)
     end
-    return Volumes(volumes), Pressures(yvalues)
+    return Volumes(volumes), Pressures(pressures)
 end
 @recipe function f(eos::BulkModulusEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
-    yvalues = map(eos, volumes)
+    bulkmoduli = map(eos, volumes)
     framestyle --> :box
     xlims --> extrema(volumes)
-    ylims --> extrema(yvalues)
+    ylims --> extrema(bulkmoduli)
     legend_foreground_color --> nothing
     grid --> nothing
-    return Volumes(volumes), BulkModuli(yvalues)
+    return Volumes(volumes), BulkModuli(bulkmoduli)
 end
 
 @userplot EnergyPlot
