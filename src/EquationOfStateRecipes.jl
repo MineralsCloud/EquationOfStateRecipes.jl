@@ -33,30 +33,30 @@ end
     return volumes
 end
 @recipe function f(::Type{Energies{T}}, energies::Energies{T}) where {T}
-    yguide --> "energy"
     seriestype --> :path
     markershape --> :circle
     markersize --> 2
     markerstrokecolor --> :auto
     markerstrokewidth --> 0
+    guide --> "energy"
     return energies
 end
 @recipe function f(::Type{Pressures{T}}, pressures::Pressures{T}) where {T}
-    yguide --> "pressure"
     seriestype --> :path
     markershape --> :circle
     markersize --> 2
     markerstrokecolor --> :auto
     markerstrokewidth --> 0
+    guide --> "pressure"
     return pressures
 end
 @recipe function f(::Type{BulkModuli{T}}, bulkmoduli::BulkModuli{T}) where {T}
-    yguide --> "bulk modulus"
     seriestype --> :path
     markershape --> :circle
     markersize --> 2
     markerstrokecolor --> :auto
     markerstrokewidth --> 0
+    guide --> "bulk modulus"
     return bulkmoduli
 end
 
