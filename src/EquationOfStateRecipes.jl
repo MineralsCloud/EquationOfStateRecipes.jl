@@ -23,10 +23,14 @@ struct BulkModuli{T} <: Data{T}
     values::Vector{T}
 end
 
-@recipe function f(::Type{Volumes{T}}, volumes::Volumes) where {T}
-    xguide --> "volume"
-    xlims --> extrema(volumes.values)
-    return volumes.values
+@recipe function f(::Type{Volumes{T}}, volumes::Volumes{T}) where {T}
+    seriestype --> :path
+    markershape --> :circle
+    markersize --> 2
+    markerstrokecolor --> :auto
+    markerstrokewidth --> 0
+    guide --> "volume"
+    return volumes
 end
 @recipe function f(::Type{Energies{T}}, energies::Energies{T}) where {T}
     yguide --> "energy"
@@ -35,7 +39,7 @@ end
     markersize --> 2
     markerstrokecolor --> :auto
     markerstrokewidth --> 0
-    return energies.values
+    return energies
 end
 @recipe function f(::Type{Pressures{T}}, pressures::Pressures{T}) where {T}
     yguide --> "pressure"
@@ -44,7 +48,7 @@ end
     markersize --> 2
     markerstrokecolor --> :auto
     markerstrokewidth --> 0
-    return pressures.values
+    return pressures
 end
 @recipe function f(::Type{BulkModuli{T}}, bulkmoduli::BulkModuli{T}) where {T}
     yguide --> "bulk modulus"
@@ -53,7 +57,7 @@ end
     markersize --> 2
     markerstrokecolor --> :auto
     markerstrokewidth --> 0
-    return bulkmoduli.values
+    return bulkmoduli
 end
 
 @recipe function f(eos::EquationOfStateOfSolids, volumes=eos.param.v0 .* (0.5:0.01:1.1))
