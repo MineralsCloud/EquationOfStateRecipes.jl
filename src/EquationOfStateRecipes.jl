@@ -111,12 +111,4 @@ end
     end
 end
 
-Base.size(data::Data) = size(data.values)
-
-Base.IndexStyle(::Type{<:Data}) = IndexLinear()
-
-Base.getindex(data::Data, i) = getindex(data.values, i)
-
-Base.setindex!(data::Data, value, i) = getindex(data.values, value, i)
-
 end
