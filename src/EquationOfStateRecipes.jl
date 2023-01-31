@@ -22,41 +22,41 @@ struct BulkModuli <: Data
     values::Vector
 end
 
-@recipe function f(::Type{Volumes{T}}, volumes::Volumes{T}) where {T}
+@recipe function f(::Type{Volumes}, volumes::Volumes)
     seriestype --> :path
     markershape --> :circle
     markersize --> 2
     markerstrokecolor --> :auto
     markerstrokewidth --> 0
     guide --> "volume"
-    return volumes
+    return volumes.values
 end
-@recipe function f(::Type{Energies{T}}, energies::Energies{T}) where {T}
+@recipe function f(::Type{Energies}, energies::Energies)
     seriestype --> :path
     markershape --> :circle
     markersize --> 2
     markerstrokecolor --> :auto
     markerstrokewidth --> 0
     guide --> "energy"
-    return energies
+    return energies.values
 end
-@recipe function f(::Type{Pressures{T}}, pressures::Pressures{T}) where {T}
+@recipe function f(::Type{Pressures}, pressures::Pressures)
     seriestype --> :path
     markershape --> :circle
     markersize --> 2
     markerstrokecolor --> :auto
     markerstrokewidth --> 0
     guide --> "pressure"
-    return pressures
+    return pressures.values
 end
-@recipe function f(::Type{BulkModuli{T}}, bulkmoduli::BulkModuli{T}) where {T}
+@recipe function f(::Type{BulkModuli}, bulkmoduli::BulkModuli)
     seriestype --> :path
     markershape --> :circle
     markersize --> 2
     markerstrokecolor --> :auto
     markerstrokewidth --> 0
     guide --> "bulk modulus"
-    return bulkmoduli
+    return bulkmoduli.values
 end
 
 @recipe function f(eos::EquationOfStateOfSolids, volumes=eos.param.v0 .* (0.5:0.01:1.1))
