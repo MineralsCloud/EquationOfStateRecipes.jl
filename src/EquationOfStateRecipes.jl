@@ -75,6 +75,13 @@ end
     ylims --> extrema(yvalues)
     legend_foreground_color --> nothing
     grid --> nothing
+    @series begin
+        seriestype --> :hline
+        seriescolor --> :black
+        z_order --> :back
+        label := ""
+        zeros(eltype(yvalues), 1)
+    end
     return Volumes(volumes), Pressures(yvalues)
 end
 @recipe function f(eos::BulkModulusEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
