@@ -5,67 +5,93 @@ using EquationsOfStateOfSolids:
 using RecipesBase: @userplot, @recipe, @series, grid
 using Unitful: AbstractQuantity, DimensionError, unit, uconvert, dimension, @u_str
 
-struct Volumes{T}
-    values::Vector{T}
+export Volumes, Energies, Pressures, BulkModuli
+
+abstract type Data end
+(T::Type{<:Data})(values) = T(collect(values))
+struct Volumes <: Data
+    values::Vector
+end
+struct Energies <: Data
+    values::Vector
+end
+struct Pressures <: Data
+    values::Vector
+end
+struct BulkModuli <: Data
+    values::Vector
 end
 
-struct Energies{T}
-    values::Vector{T}
-end
-
-struct Pressures{T}
-    values::Vector{T}
-end
-
-struct BulkModuli{T}
-    values::Vector{T}
-end
-
-@recipe f(::Type{Volumes}, 𝐕::Volumes) = 𝐕.values
-@recipe f(::Type{Energies}, 𝐄::Energies) = 𝐄.values
-@recipe f(::Type{Pressures}, 𝐏::Pressures) = 𝐏.values
-@recipe f(::Type{BulkModuli}, 𝐁::BulkModuli) = 𝐁.values
-
-@recipe function f(
-    eos::EquationOfStateOfSolids,
-    volumes=eos.param.v0 .* (0.5:0.01:1.1);
-    xunit=u"angstrom^3",
-    yunit=u"GPa",
-)
-    xguide --> "volume"
-    yguide --> _yguide(eos)
-    framestyle --> :box
-    xlims --> extrema(volumes)
-    legend_foreground_color --> nothing
-    grid --> nothing
-    yvalues = map(eos, volumes)
-    x, y = if eltype(volumes) <: AbstractQuantity && eltype(yvalues) <: AbstractQuantity
-        if dimension(xunit) != dimension(eltype(volumes)) ||
-            dimension(yunit) != dimension(eltype(yvalues))
-            error("")
-        else
-            uconvert.(xunit, volumes), uconvert.(yunit, yvalues)
-        end
-    elseif eltype(volumes) <: Real && eltype(yvalues) <: Real
-        volumes, map(eos, volumes)
-    else
-        error("")
-    end
-    if eos isa PressureEquation
-        @series begin
-            seriestype --> :hline
-            seriescolor --> :black
-            z_order --> :back
-            label := ""
-            zeros(eltype(y), 1)
-        end
-    end
+@recipe function f(::Type{Volumes}, volumes::Volumes)
     seriestype --> :path
     markershape --> :circle
     markersize --> 2
     markerstrokecolor --> :auto
     markerstrokewidth --> 0
-    return x, y
+    guide --> "volume"
+    return volumes.values
+end
+@recipe function f(::Type{Energies}, energies::Energies)
+    seriestype --> :path
+    markershape --> :circle
+    markersize --> 2
+    markerstrokecolor --> :auto
+    markerstrokewidth --> 0
+    guide --> "energy"
+    return energies.values
+end
+@recipe function f(::Type{Pressures}, pressures::Pressures)
+    seriestype --> :path
+    markershape --> :circle
+    markersize --> 2
+    markerstrokecolor --> :auto
+    markerstrokewidth --> 0
+    guide --> "pressure"
+    return pressures.values
+end
+@recipe function f(::Type{BulkModuli}, bulkmoduli::BulkModuli)
+    seriestype --> :path
+    markershape --> :circle
+    markersize --> 2
+    markerstrokecolor --> :auto
+    markerstrokewidth --> 0
+    guide --> "bulk modulus"
+    return bulkmoduli.values
+end
+
+@recipe function f(eos::EnergyEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
+    yvalues = map(eos, volumes)
+    framestyle --> :box
+    xlims --> extrema(volumes)
+    ylims --> extrema(yvalues)
+    legend_foreground_color --> nothing
+    grid --> nothing
+    return Volumes(volumes), Energies(yvalues)
+end
+@recipe function f(eos::PressureEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
+    yvalues = map(eos, volumes)
+    framestyle --> :box
+    xlims --> extrema(volumes)
+    ylims --> extrema(yvalues)
+    legend_foreground_color --> nothing
+    grid --> nothing
+    @series begin
+        seriestype --> :hline
+        seriescolor --> :black
+        z_order --> :back
+        label := ""
+        zeros(eltype(yvalues), 1)
+    end
+    return Volumes(volumes), Pressures(yvalues)
+end
+@recipe function f(eos::BulkModulusEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
+    yvalues = map(eos, volumes)
+    framestyle --> :box
+    xlims --> extrema(volumes)
+    ylims --> extrema(yvalues)
+    legend_foreground_color --> nothing
+    grid --> nothing
+    return Volumes(volumes), BulkModuli(yvalues)
 end
 
 @userplot EnergyPlot
@@ -110,9 +136,5 @@ end
         volumes, yvalues
     end
 end
-
-_yguide(::EnergyEquation) = "energy"
-_yguide(::PressureEquation) = "pressure"
-_yguide(::BulkModulusEquation) = "bulk modulus"
 
 end
