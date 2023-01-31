@@ -7,18 +7,17 @@ using Unitful: AbstractQuantity, DimensionError, unit, uconvert, dimension, @u_s
 
 export Volumes, Energies, Pressures, BulkModuli
 
-abstract type IndependentVariable{T} end
-struct Volumes{T} <: IndependentVariable{T}
+abstract type Data{T} end
+struct Volumes{T} <: Data{T}
     values::Vector{T}
 end
-abstract type DependentVariable{T} end
-struct Energies{T} <: DependentVariable{T}
+struct Energies{T} <: Data{T}
     values::Vector{T}
 end
-struct Pressures{T} <: DependentVariable{T}
+struct Pressures{T} <: Data{T}
     values::Vector{T}
 end
-struct BulkModuli{T} <: DependentVariable{T}
+struct BulkModuli{T} <: Data{T}
     values::Vector{T}
 end
 
