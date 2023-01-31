@@ -115,22 +115,28 @@ end
 @recipe function f(plot::EOSPlot)
     params = first(plot.args)
     volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
-    link := :x
+    framestyle --> :box
+    xlims --> extrema(volumes)
+    label --> ""
+    legend_foreground_color --> nothing
+    grid --> nothing
     layout := grid(2, 1)
     @series begin
         eos = EnergyEquation(params)
-        yvalues = map(eos, volumes)
+        energies = map(eos, volumes)
+        ylims --> extrema(energies)
         title --> raw"$E(V)$"
+        xguide := ""
         subplot := 1
-        volumes, yvalues
+        Volumes(volumes), Energies(energies)
     end
     @series begin
         eos = PressureEquation(params)
-        yvalues = map(eos, volumes)
+        pressures = map(eos, volumes)
+        ylims --> extrema(pressures)
         title --> raw"$P(V)$"
         subplot := 2
-        volumes, yvalues
+        Volumes(volumes), Pressures(pressures)
     end
 end
-
 end
