@@ -7,20 +7,19 @@ using Unitful: AbstractQuantity, DimensionError, unit, uconvert, dimension, @u_s
 
 export Volumes, Energies, Pressures, BulkModuli
 
-abstract type Data{T} <: AbstractVector{T} end
+abstract type Data end
 (T::Type{<:Data})(values) = T(collect(values))
-(T::Type{<:Data{S}})(values) where {S} = T(Vector{S}(values))
-struct Volumes{T} <: Data{T}
-    values::Vector{T}
+struct Volumes <: Data
+    values::Vector
 end
-struct Energies{T} <: Data{T}
-    values::Vector{T}
+struct Energies <: Data
+    values::Vector
 end
-struct Pressures{T} <: Data{T}
-    values::Vector{T}
+struct Pressures <: Data
+    values::Vector
 end
-struct BulkModuli{T} <: Data{T}
-    values::Vector{T}
+struct BulkModuli <: Data
+    values::Vector
 end
 
 @recipe function f(::Type{Volumes{T}}, volumes::Volumes{T}) where {T}
