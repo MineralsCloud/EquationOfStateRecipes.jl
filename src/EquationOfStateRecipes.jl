@@ -7,7 +7,9 @@ using Unitful: AbstractQuantity, DimensionError, unit, uconvert, dimension, @u_s
 
 export Volumes, Energies, Pressures, BulkModuli
 
-abstract type Data{T} end
+abstract type Data{T} <: AbstractVector{T} end
+(T::Type{<:Data})(values) = T(collect(values))
+(T::Type{<:Data{S}})(values) where {S} = T(Vector{S}(values))
 struct Volumes{T} <: Data{T}
     values::Vector{T}
 end
@@ -105,5 +107,13 @@ end
         volumes, yvalues
     end
 end
+
+Base.size(data::Data) = size(data.values)
+
+Base.IndexStyle(::Type{<:Data}) = IndexLinear()
+
+Base.getindex(data::Data, i) = getindex(data.values, i)
+
+Base.setindex!(data::Data, value, i) = getindex(data.values, value, i)
 
 end
