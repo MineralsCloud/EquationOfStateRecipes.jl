@@ -96,6 +96,14 @@ end
     volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
     return EnergyEquation(params), volumes
 end
+"""
+    energyplot(params, volumes, args...; kw...)
+    energyplot!(params, volumes, args...; kw...)
+    energyplot!(plotobj, params, volumes, args...; kw...)
+
+Plot the energy versus volumes curves given the parameters of equations of state.
+"""
+energyplot
 
 @userplot PressurePlot
 @recipe function f(plot::PressurePlot)
@@ -103,6 +111,14 @@ end
     volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
     return PressureEquation(params), volumes
 end
+"""
+    pressureplot(params, volumes, args...; kw...)
+    pressureplot!(params, volumes, args...; kw...)
+    pressureplot!(plotobj, params, volumes, args...; kw...)
+
+Plot the pressure versus volumes curves given the parameters of equations of state.
+"""
+pressureplot
 
 @userplot BulkModulusPlot
 @recipe function f(plot::BulkModulusPlot)
@@ -110,6 +126,14 @@ end
     volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
     return BulkModulusEquation(params), volumes
 end
+"""
+    bulkmodulusplot(params, volumes, args...; kw...)
+    bulkmodulusplot!(params, volumes, args...; kw...)
+    bulkmodulusplot!(plotobj, params, volumes, args...; kw...)
+
+Plot the bulk modulus versus volumes curves given the parameters of equations of state.
+"""
+bulkmodulusplot
 
 @userplot DualPlot
 @recipe function f(plot::DualPlot)
