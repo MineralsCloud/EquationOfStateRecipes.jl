@@ -111,8 +111,8 @@ end
     return BulkModulusEquation(params), volumes
 end
 
-@userplot EOSPlot
-@recipe function f(plot::EOSPlot)
+@userplot DualPlot
+@recipe function f(plot::DualPlot)
     params = first(plot.args)
     volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
     framestyle --> :box
