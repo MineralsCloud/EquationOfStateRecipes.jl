@@ -19,21 +19,29 @@ struct BulkModuli <: DataWrapper
 end
 
 @recipe function f(::Type{Volumes}, volumes::Volumes)
+    framestyle --> :box
+    lims --> extrema(volumes.values)
     seriestype --> :path
     guide --> "volume"
     return volumes.values
 end
 @recipe function f(::Type{Energies}, energies::Energies)
+    framestyle --> :box
+    lims --> extrema(energies.values)
     seriestype --> :path
     guide --> "energy"
     return energies.values
 end
 @recipe function f(::Type{Pressures}, pressures::Pressures)
+    framestyle --> :box
+    lims --> extrema(pressures.values)
     seriestype --> :path
     guide --> "pressure"
     return pressures.values
 end
 @recipe function f(::Type{BulkModuli}, bulkmoduli::BulkModuli)
+    framestyle --> :box
+    lims --> extrema(bulkmoduli.values)
     seriestype --> :path
     guide --> "bulk modulus"
     return bulkmoduli.values
@@ -41,18 +49,12 @@ end
 
 @recipe function f(eos::EnergyEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     energies = map(eos, volumes)
-    framestyle --> :box
-    xlims --> extrema(volumes)
-    ylims --> extrema(energies)
     legend_foreground_color --> nothing
     grid --> false
     return Volumes(volumes), Energies(energies)
 end
 @recipe function f(eos::PressureEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     pressures = map(eos, volumes)
-    framestyle --> :box
-    xlims --> extrema(volumes)
-    ylims --> extrema(pressures)
     legend_foreground_color --> nothing
     grid --> false
     @series begin
@@ -66,9 +68,6 @@ end
 end
 @recipe function f(eos::BulkModulusEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     bulkmoduli = map(eos, volumes)
-    framestyle --> :box
-    xlims --> extrema(volumes)
-    ylims --> extrema(bulkmoduli)
     legend_foreground_color --> nothing
     grid --> false
     return Volumes(volumes), BulkModuli(bulkmoduli)
@@ -123,8 +122,6 @@ bulkmodulusplot
 @recipe function f(plot::DualPlot)
     params = first(plot.args)
     volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
-    framestyle --> :box
-    xlims --> extrema(volumes)
     label --> ""
     legend_foreground_color --> nothing
     grid --> false
@@ -132,7 +129,6 @@ bulkmodulusplot
     @series begin
         eos = EnergyEquation(params)
         energies = map(eos, volumes)
-        ylims --> extrema(energies)
         title --> raw"$E(V)$"
         xguide := ""
         subplot := 1
@@ -141,7 +137,6 @@ bulkmodulusplot
     @series begin
         eos = PressureEquation(params)
         pressures = map(eos, volumes)
-        ylims --> extrema(pressures)
         title --> raw"$P(V)$"
         subplot := 2
         Volumes(volumes), Pressures(pressures)
