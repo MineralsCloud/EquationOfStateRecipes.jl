@@ -30,8 +30,8 @@ pkg> add EquationOfStateRecipes
 
 Or, equivalently, via the `Pkg` API:
 
-```@repl
-import Pkg; Pkg.add("EquationOfStateRecipes")
+```julia
+julia> import Pkg; Pkg.add("EquationOfStateRecipes")
 ```
 
 ## Documentation

@@ -164,11 +164,14 @@ Make sure you:
 To test that your changes work, run the EquationOfStateRecipes test-suite by opening Julia and
 running:
 
-```@repl
-cd("~/.julia/dev/EquationOfStateRecipes")
-using Pkg
-Pkg.activate(".")
-Pkg.test()
+```julia
+julia> cd("~/.julia/dev/EquationOfStateRecipes")
+
+julia> using Pkg
+
+julia> Pkg.activate(".")
+
+julia> Pkg.test()
 ```
 
 !!! warning
@@ -187,11 +190,14 @@ Pkg.test()
 
 Open Julia, then run:
 
-```@repl
-cd("~/.julia/dev/EquationOfStateRecipes/docs")
-using Pkg
-Pkg.activate(".")
-include("src/make.jl")
+```julia
+julia> cd("~/.julia/dev/EquationOfStateRecipes/docs")
+
+julia> using Pkg
+
+julia> Pkg.activate(".")
+
+julia> include("src/make.jl")
 ```
 
 After a while, a folder `PKGROOT/docs/build` will appear. Open

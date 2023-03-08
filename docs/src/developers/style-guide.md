@@ -36,13 +36,14 @@ We use the options contained in [`.JuliaFormatter.toml`](https://github.com/Mine
 
 To format your code, `cd` to the EquationOfStateRecipes directory, then run:
 
-```@repl
-using Pkg
-Pkg.add("JuliaFormatter")
-using JuliaFormatter: format
-format("docs");
-format("src");
-format("test");
+```julia
+julia> using Pkg
+
+julia> Pkg.add("JuliaFormatter")
+
+julia> using JuliaFormatter: format
+
+julia> format("docs"); format("src"); format("test");
 ```
 
 !!! info
