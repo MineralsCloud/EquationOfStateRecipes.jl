@@ -139,6 +139,13 @@ bulkmodulusplot
         pressures = map(eos, volumes)
         title --> raw"$P(V)$"
         subplot := 2
+        @series begin
+            seriestype --> :hline
+            seriescolor --> :black
+            z_order --> :back
+            label := ""
+            zeros(eltype(pressures), 1)
+        end
         Volumes(volumes), Pressures(pressures)
     end
 end
