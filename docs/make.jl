@@ -1,12 +1,9 @@
 using EquationOfStateRecipes
+using EquationsOfStateOfSolids
 using Documenter
+using Plots
 
-DocMeta.setdocmeta!(
-    EquationOfStateRecipes,
-    :DocTestSetup,
-    :(using EquationOfStateRecipes, EquationsOfStateOfSolids, Plots, Unitful, UnitfulAtomic);
-    recursive=true,
-)
+DocMeta.setdocmeta!(EquationOfStateRecipes, :DocTestSetup, :(using EquationOfStateRecipes); recursive=true)
 
 makedocs(;
     modules=[EquationOfStateRecipes],
