@@ -20,37 +20,21 @@ end
 
 @recipe function f(::Type{Volumes}, volumes::Volumes)
     seriestype --> :path
-    markershape --> :circle
-    markersize --> 2
-    markerstrokecolor --> :auto
-    markerstrokewidth --> 0
     guide --> "volume"
     return volumes.values
 end
 @recipe function f(::Type{Energies}, energies::Energies)
     seriestype --> :path
-    markershape --> :circle
-    markersize --> 2
-    markerstrokecolor --> :auto
-    markerstrokewidth --> 0
     guide --> "energy"
     return energies.values
 end
 @recipe function f(::Type{Pressures}, pressures::Pressures)
     seriestype --> :path
-    markershape --> :circle
-    markersize --> 2
-    markerstrokecolor --> :auto
-    markerstrokewidth --> 0
     guide --> "pressure"
     return pressures.values
 end
 @recipe function f(::Type{BulkModuli}, bulkmoduli::BulkModuli)
     seriestype --> :path
-    markershape --> :circle
-    markersize --> 2
-    markerstrokecolor --> :auto
-    markerstrokewidth --> 0
     guide --> "bulk modulus"
     return bulkmoduli.values
 end
