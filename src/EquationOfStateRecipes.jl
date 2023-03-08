@@ -23,6 +23,7 @@ end
     lims --> extrema(volumes.values)
     seriestype --> :path
     guide --> "volume"
+    legend_foreground_color --> nothing
     return volumes.values
 end
 @recipe function f(::Type{Energies}, energies::Energies)
@@ -30,6 +31,7 @@ end
     lims --> extrema(energies.values)
     seriestype --> :path
     guide --> "energy"
+    legend_foreground_color --> nothing
     return energies.values
 end
 @recipe function f(::Type{Pressures}, pressures::Pressures)
@@ -37,6 +39,7 @@ end
     lims --> extrema(pressures.values)
     seriestype --> :path
     guide --> "pressure"
+    legend_foreground_color --> nothing
     return pressures.values
 end
 @recipe function f(::Type{BulkModuli}, bulkmoduli::BulkModuli)
@@ -44,18 +47,17 @@ end
     lims --> extrema(bulkmoduli.values)
     seriestype --> :path
     guide --> "bulk modulus"
+    legend_foreground_color --> nothing
     return bulkmoduli.values
 end
 
 @recipe function f(eos::EnergyEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     energies = map(eos, volumes)
-    legend_foreground_color --> nothing
     grid --> false
     return Volumes(volumes), Energies(energies)
 end
 @recipe function f(eos::PressureEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     pressures = map(eos, volumes)
-    legend_foreground_color --> nothing
     grid --> false
     @series begin
         seriestype --> :hline
@@ -68,7 +70,6 @@ end
 end
 @recipe function f(eos::BulkModulusEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     bulkmoduli = map(eos, volumes)
-    legend_foreground_color --> nothing
     grid --> false
     return Volumes(volumes), BulkModuli(bulkmoduli)
 end
@@ -123,7 +124,6 @@ bulkmodulusplot
     params = first(plot.args)
     volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
     label --> ""
-    legend_foreground_color --> nothing
     grid --> false
     layout := (2, 1)
     @series begin
