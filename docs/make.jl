@@ -1,7 +1,12 @@
 using EquationOfStateRecipes
 using Documenter
 
-DocMeta.setdocmeta!(EquationOfStateRecipes, :DocTestSetup, :(using EquationOfStateRecipes); recursive=true)
+DocMeta.setdocmeta!(
+    EquationOfStateRecipes,
+    :DocTestSetup,
+    :(using EquationOfStateRecipes, EquationsOfStateOfSolids, Plots, Unitful, UnitfulAtomic);
+    recursive=true,
+)
 
 makedocs(;
     modules=[EquationOfStateRecipes],
@@ -18,8 +23,9 @@ makedocs(;
         "Home" => "index.md",
         "Manual" => [
             "Installation Guide" => "installation.md",
+            "Examples" => "examples.md",
         ],
-        # "Public API" => "public.md",
+        "Public API" => "public.md",
         "Developer Docs" => [
             "Contributing" => "developers/contributing.md",
             "Style Guide" => "developers/style-guide.md",
