@@ -1,7 +1,7 @@
 module EquationOfStateRecipes
 
 using EquationsOfStateOfSolids: EnergyEquation, PressureEquation, BulkModulusEquation
-using RecipesBase: @userplot, @recipe, @series, grid
+using RecipesBase: @userplot, @recipe, @series
 
 abstract type Data end
 (T::Type{<:Data})(values) = T(collect(values))
@@ -45,7 +45,7 @@ end
     xlims --> extrema(volumes)
     ylims --> extrema(energies)
     legend_foreground_color --> nothing
-    grid --> nothing
+    grid --> false
     return Volumes(volumes), Energies(energies)
 end
 @recipe function f(eos::PressureEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
@@ -54,7 +54,7 @@ end
     xlims --> extrema(volumes)
     ylims --> extrema(pressures)
     legend_foreground_color --> nothing
-    grid --> nothing
+    grid --> false
     @series begin
         seriestype --> :hline
         seriescolor --> :black
@@ -70,7 +70,7 @@ end
     xlims --> extrema(volumes)
     ylims --> extrema(bulkmoduli)
     legend_foreground_color --> nothing
-    grid --> nothing
+    grid --> false
     return Volumes(volumes), BulkModuli(bulkmoduli)
 end
 
@@ -127,8 +127,8 @@ bulkmodulusplot
     xlims --> extrema(volumes)
     label --> ""
     legend_foreground_color --> nothing
-    grid --> nothing
-    layout := grid(2, 1)
+    grid --> false
+    layout := (2, 1)
     @series begin
         eos = EnergyEquation(params)
         energies = map(eos, volumes)
