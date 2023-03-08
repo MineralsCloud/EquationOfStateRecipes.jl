@@ -2,6 +2,8 @@ using EquationOfStateRecipes
 using EquationsOfStateOfSolids
 using Documenter
 using Plots
+using Unitful
+using UnitfulAtomic
 
 DocMeta.setdocmeta!(EquationOfStateRecipes, :DocTestSetup, :(using EquationOfStateRecipes); recursive=true)
 
