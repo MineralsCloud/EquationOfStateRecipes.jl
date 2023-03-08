@@ -1,13 +1,6 @@
-```@meta
-CurrentModule = EquationOfStateRecipes
-```
-
 # API Reference
 
-```@contents
-Pages = ["public.md"]
-Depth = 3
-```
+For detailed examples, please refer to section "[Examples](@ref)".
 
 ```@docs
 energyplot
