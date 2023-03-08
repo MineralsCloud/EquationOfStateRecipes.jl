@@ -3,18 +3,18 @@ module EquationOfStateRecipes
 using EquationsOfStateOfSolids: EnergyEquation, PressureEquation, BulkModulusEquation
 using RecipesBase: @userplot, @recipe, @series
 
-abstract type Data end
-(T::Type{<:Data})(values) = T(collect(values))
-struct Volumes <: Data
+abstract type DataWrapper end
+(T::Type{<:DataWrapper})(values) = T(collect(values))
+struct Volumes <: DataWrapper
     values::Vector
 end
-struct Energies <: Data
+struct Energies <: DataWrapper
     values::Vector
 end
-struct Pressures <: Data
+struct Pressures <: DataWrapper
     values::Vector
 end
-struct BulkModuli <: Data
+struct BulkModuli <: DataWrapper
     values::Vector
 end
 
