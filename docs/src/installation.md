@@ -20,7 +20,7 @@ If you have [Homebrew](https://brew.sh) installed,
 [open `Terminal.app`](https://support.apple.com/guide/terminal/open-or-quit-terminal-apd5265185d-f365-44cb-8b09-71a064a42125/mac)
 and type
 
-```shell
+```bash
 brew install julia
 ```
 
@@ -28,7 +28,7 @@ to install it as a [formula](https://docs.brew.sh/Formula-Cookbook).
 
 If you are also using macOS and want to install it as a prebuilt binary app, type
 
-```shell
+```bash
 brew install --cask julia
 ```
 
@@ -40,7 +40,7 @@ a recommended way is to use a version manager such as
 First, [install `juliaup`](https://github.com/JuliaLang/juliaup#installation).
 Then, run
 
-```shell
+```bash
 juliaup add release
 juliaup default release
 ```
