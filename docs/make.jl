@@ -1,5 +1,6 @@
 using EquationOfStateRecipes
 using EquationsOfStateOfSolids
+using EquationsOfStateOfSolids: EquationOfStateOfSolids
 using Documenter
 using Plots
 using Unitful
