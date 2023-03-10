@@ -122,15 +122,15 @@ Plot the bulk modulus versus volumes curves given the parameters of equations of
 end
 
 """
-    dualplot(params::Parameters, volumes, args...; kw...)
-    dualplot!(params::Parameters, volumes, args...; kw...)
-    dualplot!(plotobj, params::Parameters, volumes, args...; kw...)
+    equationsplot(params::Parameters, volumes, args...; kw...)
+    equationsplot!(params::Parameters, volumes, args...; kw...)
+    equationsplot!(plotobj, params::Parameters, volumes, args...; kw...)
 
 Create a graph that shows the energy/pressure versus volume curves using the given 
 parameters of equations of state on the same horizontal axis.
 """
-@userplot DualPlot
-@recipe function f(plot::DualPlot)
+@userplot EquationsPlot
+@recipe function f(plot::EquationsPlot)
     params = first(plot.args)
     volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
     label --> ""
