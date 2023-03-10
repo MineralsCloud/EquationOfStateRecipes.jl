@@ -13,10 +13,10 @@ m = Murnaghan1st(41.13757924604193, 0.5144967654094419, 3.9123863221667086, -10.
 pt = PoirierTarantola3rd(40.86770643567071, 0.5667729960008748, 4.331688934947504, -10.851486685029437)
 v = Vinet(40.9168756740098, 0.5493839427843088, 4.3051929493806345, -10.846160810983498)
 
-dualplot(bm; label="Birch–Murnaghan");
-dualplot!(m; label="Murnaghan");
-dualplot!(pt; label="Poirier–Tarantola");
-dualplot!(v; label="Vinet");
+equationsplot(bm; label="Birch–Murnaghan")
+equationsplot!(m; label="Murnaghan")
+equationsplot!(pt; label="Poirier–Tarantola")
+equationsplot!(v; label="Vinet")
 savefig("plot.svg"); nothing # hide
 ```
 
@@ -32,10 +32,10 @@ m = Murnaghan1st(41.13757924604193u"angstrom^3", 0.5144967654094419u"Ry/angstrom
 pt = PoirierTarantola3rd(40.86770643567071u"angstrom^3", 0.5667729960008748u"Ry/angstrom^3", 4.331688934947504, -10.851486685029437u"Ry")
 v = Vinet(40.9168756740098u"angstrom^3", 0.5493839427843088u"Ry/angstrom^3", 4.3051929493806345, -10.846160810983498u"Ry")
 
-dualplot(bm; label="Birch–Murnaghan");
-dualplot!(m; label="Murnaghan");
-dualplot!(pt; label="Poirier–Tarantola");
-dualplot!(v; label="Vinet");
+equationsplot(bm; label="Birch–Murnaghan")
+equationsplot!(m; label="Murnaghan")
+equationsplot!(pt; label="Poirier–Tarantola")
+equationsplot!(v; label="Vinet")
 savefig("plot_with_units.svg"); nothing # hide
 ```
 

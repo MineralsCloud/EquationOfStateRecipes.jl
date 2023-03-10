@@ -6,5 +6,5 @@ For detailed examples, please refer to section "[Examples](@ref)".
 energyplot
 pressureplot
 bulkmodulusplot
-dualplot
+equationsplot
 ```
