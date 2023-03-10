@@ -74,12 +74,6 @@ end
     return Volumes(volumes), BulkModuli(bulkmoduli)
 end
 
-@userplot EnergyPlot
-@recipe function f(plot::EnergyPlot)
-    params = first(plot.args)
-    volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
-    return EnergyEquation(params), volumes
-end
 """
     energyplot(params, volumes, args...; kw...)
     energyplot!(params, volumes, args...; kw...)
@@ -87,14 +81,13 @@ end
 
 Plot the energy versus volumes curves given the parameters of equations of state.
 """
-energyplot
-
-@userplot PressurePlot
-@recipe function f(plot::PressurePlot)
+@userplot EnergyPlot
+@recipe function f(plot::EnergyPlot)
     params = first(plot.args)
     volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
-    return PressureEquation(params), volumes
+    return EnergyEquation(params), volumes
 end
+
 """
     pressureplot(params, volumes, args...; kw...)
     pressureplot!(params, volumes, args...; kw...)
@@ -102,14 +95,13 @@ end
 
 Plot the pressure versus volumes curves given the parameters of equations of state.
 """
-pressureplot
-
-@userplot BulkModulusPlot
-@recipe function f(plot::BulkModulusPlot)
+@userplot PressurePlot
+@recipe function f(plot::PressurePlot)
     params = first(plot.args)
     volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
-    return BulkModulusEquation(params), volumes
+    return PressureEquation(params), volumes
 end
+
 """
     bulkmodulusplot(params, volumes, args...; kw...)
     bulkmodulusplot!(params, volumes, args...; kw...)
@@ -117,8 +109,21 @@ end
 
 Plot the bulk modulus versus volumes curves given the parameters of equations of state.
 """
-bulkmodulusplot
+@userplot BulkModulusPlot
+@recipe function f(plot::BulkModulusPlot)
+    params = first(plot.args)
+    volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
+    return BulkModulusEquation(params), volumes
+end
 
+"""
+    dualplot(params, volumes, args...; kw...)
+    dualplot!(params, volumes, args...; kw...)
+    dualplot!(plotobj, params, volumes, args...; kw...)
+
+Create a graph that shows the energy/pressure versus volume curves using the given 
+parameters of equations of state on the same horizontal axis.
+"""
 @userplot DualPlot
 @recipe function f(plot::DualPlot)
     params = first(plot.args)
@@ -149,14 +154,5 @@ bulkmodulusplot
         Volumes(volumes), Pressures(pressures)
     end
 end
-"""
-    dualplot(params, volumes, args...; kw...)
-    dualplot!(params, volumes, args...; kw...)
-    dualplot!(plotobj, params, volumes, args...; kw...)
-
-Create a graph that shows the energy/pressure versus volume curves using the given 
-parameters of equations of state on the same horizontal axis.
-"""
-dualplot
 
 end
