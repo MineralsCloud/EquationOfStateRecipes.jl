@@ -165,7 +165,7 @@ To test that your changes work, run the EquationOfStateRecipes test-suite by ope
 running:
 
 ```julia-repl
-julia> cd(joinpath(DEPOT_PATH[1], "EquationOfStateRecipes"))
+julia> cd(joinpath(DEPOT_PATH[1], "dev", "EquationOfStateRecipes"))
 
 julia> using Pkg
 
@@ -192,7 +192,7 @@ julia> Pkg.test()
 Open Julia, then run:
 
 ```julia-repl
-julia> cd(joinpath(DEPOT_PATH[1], "EquationOfStateRecipes", "docs"))
+julia> cd(joinpath(DEPOT_PATH[1], "dev", "EquationOfStateRecipes", "docs"))
 
 julia> using Pkg
 
