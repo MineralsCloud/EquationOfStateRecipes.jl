@@ -1,7 +1,12 @@
 module EquationOfStateRecipes
 
-using EquationsOfStateOfSolids: EnergyEquation, PressureEquation, BulkModulusEquation
-using RecipesBase: @userplot, @recipe, @series
+using EquationsOfStateOfSolids:
+    EquationOfStateOfSolids,
+    EnergyEquation,
+    PressureEquation,
+    BulkModulusEquation,
+    Parameters
+using RecipesBase: plot, @userplot, @recipe, @series
 
 abstract type DataWrapper end
 (T::Type{<:DataWrapper})(values) = T(collect(values))
@@ -75,9 +80,9 @@ end
 end
 
 """
-    energyplot(params, volumes, args...; kw...)
-    energyplot!(params, volumes, args...; kw...)
-    energyplot!(plotobj, params, volumes, args...; kw...)
+    energyplot(params::Parameters, volumes, args...; kw...)
+    energyplot!(params::Parameters, volumes, args...; kw...)
+    energyplot!(plotobj, params::Parameters, volumes, args...; kw...)
 
 Plot the energy versus volumes curves given the parameters of equations of state.
 """
@@ -89,9 +94,9 @@ Plot the energy versus volumes curves given the parameters of equations of state
 end
 
 """
-    pressureplot(params, volumes, args...; kw...)
-    pressureplot!(params, volumes, args...; kw...)
-    pressureplot!(plotobj, params, volumes, args...; kw...)
+    pressureplot(params::Parameters, volumes, args...; kw...)
+    pressureplot!(params::Parameters, volumes, args...; kw...)
+    pressureplot!(plotobj, params::Parameters, volumes, args...; kw...)
 
 Plot the pressure versus volumes curves given the parameters of equations of state.
 """
@@ -103,9 +108,9 @@ Plot the pressure versus volumes curves given the parameters of equations of sta
 end
 
 """
-    bulkmodulusplot(params, volumes, args...; kw...)
-    bulkmodulusplot!(params, volumes, args...; kw...)
-    bulkmodulusplot!(plotobj, params, volumes, args...; kw...)
+    bulkmodulusplot(params::Parameters, volumes, args...; kw...)
+    bulkmodulusplot!(params::Parameters, volumes, args...; kw...)
+    bulkmodulusplot!(plotobj, params::Parameters, volumes, args...; kw...)
 
 Plot the bulk modulus versus volumes curves given the parameters of equations of state.
 """
@@ -117,9 +122,9 @@ Plot the bulk modulus versus volumes curves given the parameters of equations of
 end
 
 """
-    dualplot(params, volumes, args...; kw...)
-    dualplot!(params, volumes, args...; kw...)
-    dualplot!(plotobj, params, volumes, args...; kw...)
+    dualplot(params::Parameters, volumes, args...; kw...)
+    dualplot!(params::Parameters, volumes, args...; kw...)
+    dualplot!(plotobj, params::Parameters, volumes, args...; kw...)
 
 Create a graph that shows the energy/pressure versus volume curves using the given 
 parameters of equations of state on the same horizontal axis.
