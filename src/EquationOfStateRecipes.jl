@@ -6,7 +6,7 @@ using EquationsOfStateOfSolids:
     PressureEquation,
     BulkModulusEquation,
     Parameters
-using RecipesBase: plot, @userplot, @recipe, @series
+using RecipesBase: @userplot, @recipe, @series
 
 abstract type DataWrapper end
 (T::Type{<:DataWrapper})(values) = T(collect(values))
@@ -56,11 +56,25 @@ end
     return bulkmoduli.values
 end
 
+"""
+    plot(eos::EnergyEquation, volumes, args...; kw...)
+    plot!(eos::EnergyEquation, volumes, args...; kw...)
+    plot!(plotobj, eos::EnergyEquation, volumes, args...; kw...)
+
+Plot the energy versus volumes curve given an equation of state.
+"""
 @recipe function f(eos::EnergyEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     energies = map(eos, volumes)
     grid --> false
     return Volumes(volumes), Energies(energies)
 end
+"""
+    plot(eos::PressureEquation, volumes, args...; kw...)
+    plot!(eos::PressureEquation, volumes, args...; kw...)
+    plot!(plotobj, eos::PressureEquation, volumes, args...; kw...)
+
+Plot the pressure versus volumes curve given an equation of state.
+"""
 @recipe function f(eos::PressureEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     pressures = map(eos, volumes)
     grid --> false
@@ -73,6 +87,13 @@ end
     end
     return Volumes(volumes), Pressures(pressures)
 end
+"""
+    plot(eos::BulkModulusEquation, volumes, args...; kw...)
+    plot!(eos::BulkModulusEquation, volumes, args...; kw...)
+    plot!(plotobj, eos::BulkModulusEquation, volumes, args...; kw...)
+
+Plot the bulk modulus versus volumes curve given an equation of state.
+"""
 @recipe function f(eos::BulkModulusEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     bulkmoduli = map(eos, volumes)
     grid --> false
@@ -159,14 +180,5 @@ parameters of equations of state on the same horizontal axis.
         Volumes(volumes), Pressures(pressures)
     end
 end
-
-"""
-    plot(eos::EquationOfStateOfSolids, volumes, args...; kw...)
-    plot!(eos::EquationOfStateOfSolids, volumes, args...; kw...)
-    plot!(plotobj, eos::EquationOfStateOfSolids, volumes, args...; kw...)
-
-Plot the property versus volumes curves given an equation of state.
-"""
-plot
 
 end
