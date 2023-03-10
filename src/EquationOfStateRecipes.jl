@@ -155,4 +155,13 @@ parameters of equations of state on the same horizontal axis.
     end
 end
 
+"""
+    plot(eos::EquationOfStateOfSolids, volumes, args...; kw...)
+    plot!(eos::EquationOfStateOfSolids, volumes, args...; kw...)
+    plot!(plotobj, eos::EquationOfStateOfSolids, volumes, args...; kw...)
+
+Plot the property versus volumes curves given an equation of state.
+"""
+plot
+
 end
