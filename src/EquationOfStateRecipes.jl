@@ -8,6 +8,8 @@ using EquationsOfStateOfSolids:
     Parameters
 using RecipesBase: @userplot, @recipe, @series
 
+export pressurescaleplot, pressurescaleplot!
+
 abstract type DataWrapper end
 (T::Type{<:DataWrapper})(values) = T(collect(values))
 struct Volumes <: DataWrapper
@@ -180,5 +182,8 @@ parameters of equations of state on the same horizontal axis.
         Volumes(volumes), Pressures(pressures)
     end
 end
+
+function pressurescaleplot end
+function pressurescaleplot! end
 
 end
