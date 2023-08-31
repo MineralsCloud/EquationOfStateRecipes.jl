@@ -8,6 +8,8 @@ using EquationsOfStateOfSolids:
     Parameters
 using RecipesBase: @userplot, @recipe, @series
 
+import RecipesBase: recipetype
+
 export pressurescaleplot, pressurescaleplot!
 
 abstract type DataWrapper end
@@ -185,5 +187,11 @@ end
 
 function pressurescaleplot end
 function pressurescaleplot! end
+
+# See https://github.com/JuliaPlots/StatsPlots.jl/blob/v0.15.6/src/bar.jl#L3
+recipetype(::Val{:energyplot}, args...) = EnergyPlot(args)
+recipetype(::Val{:pressureplot}, args...) = PressurePlot(args)
+recipetype(::Val{:bulkmodulusplot}, args...) = BulkModulusPlot(args)
+recipetype(::Val{:equationsplot}, args...) = EquationsPlot(args)
 
 end
