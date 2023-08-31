@@ -149,7 +149,7 @@ end
     equationsplot!(params::Parameters, volumes, args...; kw...)
     equationsplot!(plotobj, params::Parameters, volumes, args...; kw...)
 
-Create a graph that shows the energy/pressure versus volume curves using the given 
+Create a graph that shows the energy/pressure versus volume curves using the given
 parameters of equations of state on the same horizontal axis.
 """
 @userplot EquationsPlot
