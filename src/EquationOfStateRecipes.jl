@@ -6,7 +6,7 @@ using EquationsOfStateOfSolids:
     PressureEquation,
     BulkModulusEquation,
     Parameters
-using RecipesBase: @userplot, @recipe, @series
+using RecipesBase: plot, @userplot, @recipe, @series
 
 import RecipesBase: recipetype
 
@@ -60,25 +60,27 @@ end
     return bulkmoduli.values
 end
 
+# See https://docs.juliaplots.org/stable/recipes/#Documenting-plot-functions
 """
     plot(eos::EnergyEquation, volumes, args...; kw...)
+    plot(eos::PressureEquation, volumes, args...; kw...)
+    plot(eos::BulkModulusEquation, volumes, args...; kw...)
     plot!(eos::EnergyEquation, volumes, args...; kw...)
+    plot!(eos::PressureEquation, volumes, args...; kw...)
+    plot!(eos::BulkModulusEquation, volumes, args...; kw...)
     plot!(plotobj, eos::EnergyEquation, volumes, args...; kw...)
+    plot!(plotobj, eos::PressureEquation, volumes, args...; kw...)
+    plot!(plotobj, eos::BulkModulusEquation, volumes, args...; kw...)
 
-Plot the energy versus volumes curve given an equation of state.
+Plot the energy/pressure/bulk modulus versus volumes curve given an equation of state.
 """
+plot
+
 @recipe function f(eos::EnergyEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     energies = map(eos, volumes)
     grid --> false
     return Volumes(volumes), Energies(energies)
 end
-"""
-    plot(eos::PressureEquation, volumes, args...; kw...)
-    plot!(eos::PressureEquation, volumes, args...; kw...)
-    plot!(plotobj, eos::PressureEquation, volumes, args...; kw...)
-
-Plot the pressure versus volumes curve given an equation of state.
-"""
 @recipe function f(eos::PressureEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     pressures = map(eos, volumes)
     grid --> false
@@ -91,13 +93,6 @@ Plot the pressure versus volumes curve given an equation of state.
     end
     return Volumes(volumes), Pressures(pressures)
 end
-"""
-    plot(eos::BulkModulusEquation, volumes, args...; kw...)
-    plot!(eos::BulkModulusEquation, volumes, args...; kw...)
-    plot!(plotobj, eos::BulkModulusEquation, volumes, args...; kw...)
-
-Plot the bulk modulus versus volumes curve given an equation of state.
-"""
 @recipe function f(eos::BulkModulusEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     bulkmoduli = map(eos, volumes)
     grid --> false
