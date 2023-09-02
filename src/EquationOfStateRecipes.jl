@@ -79,7 +79,6 @@ plot
 end
 @recipe function f(eos::PressureEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     pressures = map(eos, volumes)
-    grid --> false
     @series begin
         seriestype --> :hline
         seriescolor --> :black
@@ -92,7 +91,6 @@ end
 end
 @recipe function f(eos::BulkModulusEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     bulkmoduli = map(eos, volumes)
-    grid --> false
     return Volumes(volumes), BulkModuli(bulkmoduli)
 end
 
