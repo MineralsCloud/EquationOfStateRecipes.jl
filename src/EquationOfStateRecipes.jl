@@ -28,7 +28,6 @@ end
     label --> ""
     lims --> extrema(volumes.values)
     guide --> "volume"
-    legend_foreground_color --> nothing
     framestyle --> :box
     return volumes.values
 end
@@ -37,7 +36,6 @@ end
     label --> ""
     lims --> extrema(energies.values)
     guide --> "energy"
-    legend_foreground_color --> nothing
     framestyle --> :box
     return energies.values
 end
@@ -46,7 +44,6 @@ end
     label --> ""
     lims --> extrema(pressures.values)
     guide --> "pressure"
-    legend_foreground_color --> nothing
     framestyle --> :box
     return pressures.values
 end
@@ -55,7 +52,6 @@ end
     label --> ""
     lims --> extrema(bulkmoduli.values)
     guide --> "bulk modulus"
-    legend_foreground_color --> nothing
     framestyle --> :box
     return bulkmoduli.values
 end
