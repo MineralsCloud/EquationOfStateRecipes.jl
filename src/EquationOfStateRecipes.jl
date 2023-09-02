@@ -66,7 +66,15 @@ plot
 
 @recipe function f(eos::EnergyEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     energies = map(eos, volumes)
-    grid --> false
+    min, index = findmin(energies)
+    @series begin
+        seriestype --> :scatter
+        markersize --> 2
+        markerstrokewidth --> 0
+        label := ""
+        [volumes[index]], [min]
+    end
+    primary := false  # See https://discourse.julialang.org/t/what-does-the-primary-attribute-do-and-how-to-plot-curves-with-scatters-added-onto-it-in-plots-jl/93486/2
     return Volumes(volumes), Energies(energies)
 end
 @recipe function f(eos::PressureEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
