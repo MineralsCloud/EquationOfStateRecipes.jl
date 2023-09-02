@@ -54,7 +54,7 @@ Or, we can plot dual plots with `energypressureplot`:
 
 ```@repl 1
 plot(; layout=(1, 2))
-energypressureplot(bm; label="Birch–Murnaghan");
+energypressureplot!(bm; label="Birch–Murnaghan");
 energypressureplot!(m; label="Murnaghan");
 energypressureplot!(pt; label="Poirier–Tarantola");
 energypressureplot!(v; label="Vinet");
