@@ -137,12 +137,16 @@ Plot the bulk modulus versus volumes curves given the parameters of equations of
 end
 
 """
-    energypressureplot(params::Parameters, volumes, args...; kw...)
-    energypressureplot!(params::Parameters, volumes, args...; kw...)
-    energypressureplot!(plotobj, params::Parameters, volumes, args...; kw...)
+    energypressureplot(params::Parameters, volumes, args...; layout=(1, 2), kw...)
+    energypressureplot!(params::Parameters, volumes, args...; layout=(1, 2), kw...)
+    energypressureplot!(plotobj, params::Parameters, volumes, args...; layout=(1, 2), kw...)
 
-Create a graph that shows the energy/pressure versus volume curves using the given 
+Create a graph that shows the energy/pressure versus volume curves using the given
 parameters of equations of state on the same horizontal axis.
+
+!!! tip
+    To use this function, you must specify the `layout` keyword argument as either
+    `(1, 2)` or `(2, 1)`!
 """
 @userplot EnergyPressurePlot
 @recipe function f(plot::EnergyPressurePlot)
