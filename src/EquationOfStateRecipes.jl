@@ -24,35 +24,27 @@ struct BulkModuli <: DataWrapper
 end
 
 @recipe function f(::Type{Volumes}, volumes::Volumes)
-    framestyle --> :box
-    lims --> extrema(volumes.values)
     seriestype --> :path
+    label --> ""
     guide --> "volume"
-    legend_foreground_color --> nothing
     return volumes.values
 end
 @recipe function f(::Type{Energies}, energies::Energies)
-    framestyle --> :box
-    lims --> extrema(energies.values)
     seriestype --> :path
+    label --> ""
     guide --> "energy"
-    legend_foreground_color --> nothing
     return energies.values
 end
 @recipe function f(::Type{Pressures}, pressures::Pressures)
-    framestyle --> :box
-    lims --> extrema(pressures.values)
     seriestype --> :path
+    label --> ""
     guide --> "pressure"
-    legend_foreground_color --> nothing
     return pressures.values
 end
 @recipe function f(::Type{BulkModuli}, bulkmoduli::BulkModuli)
-    framestyle --> :box
-    lims --> extrema(bulkmoduli.values)
     seriestype --> :path
+    label --> ""
     guide --> "bulk modulus"
-    legend_foreground_color --> nothing
     return bulkmoduli.values
 end
 
@@ -74,12 +66,19 @@ plot
 
 @recipe function f(eos::EnergyEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     energies = map(eos, volumes)
-    grid --> false
+    min, index = findmin(energies)
+    @series begin
+        seriestype --> :scatter
+        markersize --> 2
+        markerstrokewidth --> 0
+        label := ""
+        [volumes[index]], [min]
+    end
+    primary := false  # See https://discourse.julialang.org/t/what-does-the-primary-attribute-do-and-how-to-plot-curves-with-scatters-added-onto-it-in-plots-jl/93486/2
     return Volumes(volumes), Energies(energies)
 end
 @recipe function f(eos::PressureEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     pressures = map(eos, volumes)
-    grid --> false
     @series begin
         seriestype --> :hline
         seriescolor --> :black
@@ -87,11 +86,11 @@ end
         label := ""
         zeros(eltype(pressures), 1)
     end
+    xlims --> extrema(volumes)
     return Volumes(volumes), Pressures(pressures)
 end
 @recipe function f(eos::BulkModulusEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
     bulkmoduli = map(eos, volumes)
-    grid --> false
     return Volumes(volumes), BulkModuli(bulkmoduli)
 end
 
@@ -105,7 +104,7 @@ Plot the energy versus volumes curves given the parameters of equations of state
 @userplot EnergyPlot
 @recipe function f(plot::EnergyPlot)
     params = first(plot.args)
-    volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
+    volumes = length(plot.args) == 2 ? last(plot.args) : params.v0 .* (0.5:0.01:1.1)
     return EnergyEquation(params), volumes
 end
 
@@ -119,7 +118,7 @@ Plot the pressure versus volumes curves given the parameters of equations of sta
 @userplot PressurePlot
 @recipe function f(plot::PressurePlot)
     params = first(plot.args)
-    volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
+    volumes = length(plot.args) == 2 ? last(plot.args) : params.v0 .* (0.5:0.01:1.1)
     return PressureEquation(params), volumes
 end
 
@@ -133,46 +132,31 @@ Plot the bulk modulus versus volumes curves given the parameters of equations of
 @userplot BulkModulusPlot
 @recipe function f(plot::BulkModulusPlot)
     params = first(plot.args)
-    volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
+    volumes = length(plot.args) == 2 ? last(plot.args) : params.v0 .* (0.5:0.01:1.1)
     return BulkModulusEquation(params), volumes
 end
 
 """
-    equationsplot(params::Parameters, volumes, args...; kw...)
-    equationsplot!(params::Parameters, volumes, args...; kw...)
-    equationsplot!(plotobj, params::Parameters, volumes, args...; kw...)
+    energypressureplot(params::Parameters, volumes, args...; kw...)
+    energypressureplot!(params::Parameters, volumes, args...; kw...)
+    energypressureplot!(plotobj, params::Parameters, volumes, args...; kw...)
 
 Create a graph that shows the energy/pressure versus volume curves using the given 
 parameters of equations of state on the same horizontal axis.
 """
-@userplot EquationsPlot
-@recipe function f(plot::EquationsPlot)
+@userplot EnergyPressurePlot
+@recipe function f(plot::EnergyPressurePlot)
     params = first(plot.args)
-    volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
-    label --> ""
-    grid --> false
-    layout := (2, 1)
+    volumes = length(plot.args) == 2 ? last(plot.args) : params.v0 .* (0.5:0.01:1.1)
     @series begin
-        eos = EnergyEquation(params)
-        energies = map(eos, volumes)
         title --> raw"$E(V)$"
-        xguide := ""
         subplot := 1
-        Volumes(volumes), Energies(energies)
+        recipetype(:energyplot, params, volumes)
     end
     @series begin
-        eos = PressureEquation(params)
-        pressures = map(eos, volumes)
         title --> raw"$P(V)$"
         subplot := 2
-        @series begin
-            seriestype --> :hline
-            seriescolor --> :black
-            z_order --> :back
-            label := ""
-            zeros(eltype(pressures), 1)
-        end
-        Volumes(volumes), Pressures(pressures)
+        recipetype(:pressureplot, params, volumes)
     end
 end
 
@@ -183,6 +167,6 @@ function pressurescaleplot! end
 recipetype(::Val{:energyplot}, args...) = EnergyPlot(args)
 recipetype(::Val{:pressureplot}, args...) = PressurePlot(args)
 recipetype(::Val{:bulkmodulusplot}, args...) = BulkModulusPlot(args)
-recipetype(::Val{:equationsplot}, args...) = EquationsPlot(args)
+recipetype(::Val{:energypressureplot}, args...) = EnergyPressurePlot(args)
 
 end
