@@ -1,7 +1,7 @@
 name = "EquationOfStateRecipes"
 uuid = "8d49d7c9-511f-4c38-862f-eeb1232c8dad"
 authors = ["Qi Zhang <singularitti@outlook.com>"]
-version = "0.4.1"
+version = "0.5.0"
 
 [deps]
 EquationsOfStateOfSolids = "1eaa2786-f833-4167-8397-974edad0881e"
