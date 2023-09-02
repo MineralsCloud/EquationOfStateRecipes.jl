@@ -148,30 +148,17 @@ parameters of equations of state on the same horizontal axis.
 @recipe function f(plot::EquationsPlot)
     params = first(plot.args)
     volumes = length(plot.args) == 2 ? last(plot.args) : params.v0 .* (0.5:0.01:1.1)
-    label --> ""
-    grid --> false
     layout := (2, 1)
     @series begin
-        eos = EnergyEquation(params)
-        energies = map(eos, volumes)
         title --> raw"$E(V)$"
         xguide := ""
         subplot := 1
-        Volumes(volumes), Energies(energies)
+        recipetype(:energyplot, params, volumes)
     end
     @series begin
-        eos = PressureEquation(params)
-        pressures = map(eos, volumes)
         title --> raw"$P(V)$"
         subplot := 2
-        @series begin
-            seriestype --> :hline
-            seriescolor --> :black
-            z_order --> :back
-            label := ""
-            zeros(eltype(pressures), 1)
-        end
-        Volumes(volumes), Pressures(pressures)
+        recipetype(:pressureplot, params, volumes)
     end
 end
 
