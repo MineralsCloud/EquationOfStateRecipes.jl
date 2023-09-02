@@ -104,7 +104,7 @@ Plot the energy versus volumes curves given the parameters of equations of state
 @userplot EnergyPlot
 @recipe function f(plot::EnergyPlot)
     params = first(plot.args)
-    volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
+    volumes = length(plot.args) == 2 ? last(plot.args) : params.v0 .* (0.5:0.01:1.1)
     return EnergyEquation(params), volumes
 end
 
@@ -118,7 +118,7 @@ Plot the pressure versus volumes curves given the parameters of equations of sta
 @userplot PressurePlot
 @recipe function f(plot::PressurePlot)
     params = first(plot.args)
-    volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
+    volumes = length(plot.args) == 2 ? last(plot.args) : params.v0 .* (0.5:0.01:1.1)
     return PressureEquation(params), volumes
 end
 
@@ -132,7 +132,7 @@ Plot the bulk modulus versus volumes curves given the parameters of equations of
 @userplot BulkModulusPlot
 @recipe function f(plot::BulkModulusPlot)
     params = first(plot.args)
-    volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
+    volumes = length(plot.args) == 2 ? last(plot.args) : params.v0 .* (0.5:0.01:1.1)
     return BulkModulusEquation(params), volumes
 end
 
@@ -147,7 +147,7 @@ parameters of equations of state on the same horizontal axis.
 @userplot EquationsPlot
 @recipe function f(plot::EquationsPlot)
     params = first(plot.args)
-    volumes = length(plot.args) == 2 ? plot.args[end] : params.v0 .* (0.5:0.01:1.1)
+    volumes = length(plot.args) == 2 ? last(plot.args) : params.v0 .* (0.5:0.01:1.1)
     label --> ""
     grid --> false
     layout := (2, 1)
