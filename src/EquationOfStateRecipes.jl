@@ -24,35 +24,39 @@ struct BulkModuli <: DataWrapper
 end
 
 @recipe function f(::Type{Volumes}, volumes::Volumes)
-    framestyle --> :box
-    lims --> extrema(volumes.values)
     seriestype --> :path
+    label --> ""
+    lims --> extrema(volumes.values)
     guide --> "volume"
     legend_foreground_color --> nothing
+    framestyle --> :box
     return volumes.values
 end
 @recipe function f(::Type{Energies}, energies::Energies)
-    framestyle --> :box
-    lims --> extrema(energies.values)
     seriestype --> :path
+    label --> ""
+    lims --> extrema(energies.values)
     guide --> "energy"
     legend_foreground_color --> nothing
+    framestyle --> :box
     return energies.values
 end
 @recipe function f(::Type{Pressures}, pressures::Pressures)
-    framestyle --> :box
+    seriestype --> :scatter
+    label --> ""
     lims --> extrema(pressures.values)
-    seriestype --> :path
     guide --> "pressure"
     legend_foreground_color --> nothing
+    framestyle --> :box
     return pressures.values
 end
 @recipe function f(::Type{BulkModuli}, bulkmoduli::BulkModuli)
-    framestyle --> :box
-    lims --> extrema(bulkmoduli.values)
     seriestype --> :path
+    label --> ""
+    lims --> extrema(bulkmoduli.values)
     guide --> "bulk modulus"
     legend_foreground_color --> nothing
+    framestyle --> :box
     return bulkmoduli.values
 end
 
