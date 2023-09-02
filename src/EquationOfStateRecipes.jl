@@ -148,10 +148,8 @@ parameters of equations of state on the same horizontal axis.
 @recipe function f(plot::EnergyPressurePlot)
     params = first(plot.args)
     volumes = length(plot.args) == 2 ? last(plot.args) : params.v0 .* (0.5:0.01:1.1)
-    layout := (2, 1)
     @series begin
         title --> raw"$E(V)$"
-        xguide := ""
         subplot := 1
         recipetype(:energyplot, params, volumes)
     end
