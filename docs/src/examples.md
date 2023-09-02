@@ -32,13 +32,13 @@ savefig("ploteos.svg"); nothing # hide
 
 ![](ploteos.svg)
 
-Or, we can plot these parameters directly using shorthand functions such as `energyplot`, `pressureplot`, `bulkmodulusplot`, and `equationsplot`:
+Or, we can plot these parameters directly using shorthand functions such as `energyplot`, `pressureplot`, `bulkmodulusplot`, and `energypressureplot`:
 
 ```@repl 1
-equationsplot(bm; label="Birch–Murnaghan");
-equationsplot!(m; label="Murnaghan");
-equationsplot!(pt; label="Poirier–Tarantola");
-equationsplot!(v; label="Vinet");
+energypressureplot(bm; label="Birch–Murnaghan");
+energypressureplot!(m; label="Murnaghan");
+energypressureplot!(pt; label="Poirier–Tarantola");
+energypressureplot!(v; label="Vinet");
 savefig("plot.svg"); nothing # hide
 ```
 
@@ -54,10 +54,10 @@ m = Murnaghan1st(41.13757924604193u"angstrom^3", 0.5144967654094419u"Ry/angstrom
 pt = PoirierTarantola3rd(40.86770643567071u"angstrom^3", 0.5667729960008748u"Ry/angstrom^3", 4.331688934947504, -10.851486685029437u"Ry");
 v = Vinet(40.9168756740098u"angstrom^3", 0.5493839427843088u"Ry/angstrom^3", 4.3051929493806345, -10.846160810983498u"Ry");
 
-equationsplot(bm; label="Birch–Murnaghan");
-equationsplot!(m; label="Murnaghan");
-equationsplot!(pt; label="Poirier–Tarantola");
-equationsplot!(v; label="Vinet");
+energypressureplot(bm; label="Birch–Murnaghan");
+energypressureplot!(m; label="Murnaghan");
+energypressureplot!(pt; label="Poirier–Tarantola");
+energypressureplot!(v; label="Vinet");
 savefig("plot_with_units.svg"); nothing # hide
 ```
 

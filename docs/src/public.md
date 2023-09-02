@@ -7,5 +7,5 @@ plot
 energyplot
 pressureplot
 bulkmodulusplot
-equationsplot
+energypressureplot
 ```
