@@ -26,33 +26,25 @@ end
 @recipe function f(::Type{Volumes}, volumes::Volumes)
     seriestype --> :path
     label --> ""
-    lims --> extrema(volumes.values)
     guide --> "volume"
-    framestyle --> :box
     return volumes.values
 end
 @recipe function f(::Type{Energies}, energies::Energies)
     seriestype --> :path
     label --> ""
-    lims --> extrema(energies.values)
     guide --> "energy"
-    framestyle --> :box
     return energies.values
 end
 @recipe function f(::Type{Pressures}, pressures::Pressures)
-    seriestype --> :scatter
+    seriestype --> :path
     label --> ""
-    lims --> extrema(pressures.values)
     guide --> "pressure"
-    framestyle --> :box
     return pressures.values
 end
 @recipe function f(::Type{BulkModuli}, bulkmoduli::BulkModuli)
     seriestype --> :path
     label --> ""
-    lims --> extrema(bulkmoduli.values)
     guide --> "bulk modulus"
-    framestyle --> :box
     return bulkmoduli.values
 end
 
