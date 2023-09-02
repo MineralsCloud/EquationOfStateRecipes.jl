@@ -87,6 +87,7 @@ end
         label := ""
         zeros(eltype(pressures), 1)
     end
+    xlims --> extrema(volumes)
     return Volumes(volumes), Pressures(pressures)
 end
 @recipe function f(eos::BulkModulusEquation, volumes=eos.param.v0 .* (0.5:0.01:1.1))
