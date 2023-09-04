@@ -69,7 +69,7 @@ plot
     min, index = findmin(energies)
     @series begin
         seriestype --> :scatter
-        markersize --> 2
+        markersize --> 1.25 * get(plotattributes, :linewidth, 1)
         markerstrokewidth --> 0
         label := ""
         [volumes[index]], [min]
