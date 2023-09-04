@@ -53,9 +53,9 @@ savefig("eos.svg"); nothing # hide
 Or, we can plot subplots with:
 
 ```@repl 1
-colors = palette(:tab10)
-labels = ["Birch–Murnaghan", "Murnaghan", "Poirier–Tarantola", "Vinet"]
-plt = plot(; layout=(1, 2))
+colors = palette(:tab10);
+labels = ["Birch–Murnaghan", "Murnaghan", "Poirier–Tarantola", "Vinet"];
+plt = plot(; layout=(1, 2));
 for (params, label, color) in zip((bm, m, pt, v), labels, colors)
     energyplot!(plt, params; label=label, subplot=1, color=color);
     pressureplot!(plt, params; label=label, subplot=2, color=color);
@@ -75,7 +75,7 @@ m = Murnaghan1st(41.13757924604193u"angstrom^3", 0.5144967654094419u"Ry/angstrom
 pt = PoirierTarantola3rd(40.86770643567071u"angstrom^3", 0.5667729960008748u"Ry/angstrom^3", 4.331688934947504, -10.851486685029437u"Ry");
 v = Vinet(40.9168756740098u"angstrom^3", 0.5493839427843088u"Ry/angstrom^3", 4.3051929493806345, -10.846160810983498u"Ry");
 
-plt = plot(energyplot(bm; label="Birch–Murnaghan", yunit=u"Ry"), pressureplot(bm; label="Birch–Murnaghan", yunit=u"GPa"))
+plt = plot(energyplot(bm; label="Birch–Murnaghan", yunit=u"eV"), pressureplot(bm; label="Birch–Murnaghan", yunit=u"GPa"));
 for (params, label, color) in zip((m, pt, v), labels, colors)
     energyplot!(plt, params; label=label, subplot=1, color=color);
     pressureplot!(plt, params; label=label, subplot=2, color=color);
