@@ -82,6 +82,7 @@ end
     @series begin
         seriestype --> :hline
         seriescolor --> :black
+        linewidth := 1  # This is an axis, don't change its width
         z_order --> :back
         label := ""
         zeros(eltype(pressures), 1)
