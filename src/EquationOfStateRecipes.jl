@@ -1,7 +1,6 @@
 module EquationOfStateRecipes
 
-using EquationsOfStateOfSolids:
-    EquationOfStateOfSolids, EnergyEquation, PressureEquation, BulkModulusEquation
+using EquationsOfStateOfSolids: EnergyEquation, PressureEquation, BulkModulusEquation
 using RecipesBase: plot, @userplot, @recipe, @series
 
 import RecipesBase: recipetype
