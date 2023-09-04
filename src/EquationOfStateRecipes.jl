@@ -87,7 +87,7 @@ end
     pressures = map(eos, volumes)
     @series begin
         seriestype --> :hline
-        seriescolor --> :black
+        seriescolor := :black  # Fix the axis color
         linewidth := 1  # This is an axis, don't change its width
         z_order --> :back
         label := ""
