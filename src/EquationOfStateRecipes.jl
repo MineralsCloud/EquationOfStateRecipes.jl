@@ -150,6 +150,5 @@ function pressurescaleplot! end
 recipetype(::Val{:energyplot}, args...) = EnergyPlot(args)
 recipetype(::Val{:pressureplot}, args...) = PressurePlot(args)
 recipetype(::Val{:bulkmodulusplot}, args...) = BulkModulusPlot(args)
-recipetype(::Val{:energypressureplot}, args...) = EnergyPressurePlot(args)
 
 end

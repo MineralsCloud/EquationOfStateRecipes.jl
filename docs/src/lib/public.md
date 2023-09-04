@@ -22,5 +22,4 @@ plot
 energyplot
 pressureplot
 bulkmodulusplot
-energypressureplot
 ```
